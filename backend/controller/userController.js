@@ -1,6 +1,13 @@
 import userModel from '../models/User.js';
 import bcrypt from 'bcrypt';
 import { createToken } from '../lib/auth.js';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 export async function createUserController(req, res) {
   try {
@@ -25,7 +32,7 @@ export async function loginUserController(req, res) {
     if (user) {
       const isMatching = await bcrypt.compare(req.body.password, user.password);
       if (isMatching) {
-        const token = await createToken({ customerId: user.customerId, userId: user._id }, { expiresIn: '1h' });
+        const token = await createToken({ userId: user._id });
         // console.log(token);
         return res
           .status(200)
@@ -59,4 +66,29 @@ export const getUserController = async (req, res) => {
     console.log('Error fetching user:', error);
     res.status(500).json(error);
   }
+};
+
+
+export const getUserImage = async (req, res) => {
+  
+  const userId = req.userId; 
+  const currentUser = await userModel.findById(userId);
+
+  if (!currentUser) {
+    res.status(404).send('Nutzer nicht gefunden');
+    return;
+  }
+  const imagePath = currentUser.profileImage;
+
+  if (fs.existsSync(imagePath)) {
+    console.log('__dirname:', __dirname);
+    return res.sendFile(path.join(__dirname, '/..', imagePath));
+  } else {
+    return res.sendFile(path.join(__dirname, '/..', 'assets', 'placeholder-profile-img.jpeg'));
+  }
+};
+
+export const logoutUserController = async (req, res) => {
+  res.clearCookie('accessToken');
+  res.status(200).send({ msg: 'logged out, cookies cleared' });
 };

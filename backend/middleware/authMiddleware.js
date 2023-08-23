@@ -17,6 +17,8 @@ export const authMiddleware = async (req, res, next) => {
       return res.status(403).json({ msg: 'Authentication failed!, no valid token' });
     }
     const decodedToken = await validateToken(token);
+    
+    req.userId = decodedToken.userId;
 
     if (!decodedToken) {
       console.log('Invalid token');

@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
     min: [7, 'password muss mindestens 7 characters sein'],
     max: [10, 'password muss maximal 10 characters sein'],
   },
+  profileImage: String,
 });
 
 const User = mongoose.model("User", userSchema);

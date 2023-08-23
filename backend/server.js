@@ -7,6 +7,7 @@ import generalRouter from './routes/generalRoutes.js';
 import roomRouter from './routes/roomRoutes.js';
 import reservationRouter from './routes/reservationRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import multerRouter from './routes/multerRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ const PORT = process.env.PORT || 3000;
 app.use('/api', roomRouter);
 app.use('/api', reservationRouter);
 app.use('/api', userRouter);
+app.use('/api', multerRouter)
 app.use('/api', generalRouter);
 
 
