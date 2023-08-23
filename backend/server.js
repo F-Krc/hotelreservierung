@@ -6,7 +6,7 @@ import { connectMongoose } from './util/connectMongoose.js';
 import generalRouter from './routes/generalRoutes.js';
 import roomRouter from './routes/roomRoutes.js';
 import reservationRouter from './routes/reservationRoutes.js';
-import userRouter from './routes/userRouter.js';
+import userRouter from './routes/userRoutes.js';
 
 const app = express();
 app.use(express.json());
