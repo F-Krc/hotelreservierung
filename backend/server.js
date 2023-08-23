@@ -1,19 +1,28 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import cookieParser from 'cookie-parser';
 import { connectMongoose } from './util/connectMongoose.js';
 import generalRouter from './routes/generalRoutes.js';
 import roomRouter from './routes/roomRoutes.js';
 import reservationRouter from './routes/reservationRoutes.js';
+import userRouter from './routes/userRouter.js';
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: ['http://localhost:4000', 'http://localhost:5173'],
+    credentials: true,
+  })
+);
 const PORT = process.env.PORT || 3000;
 
-app.use(roomRouter);
-app.use(reservationRouter);
-app.use(generalRouter);
+app.use('/api', roomRouter);
+app.use('/api', reservationRouter);
+app.use('/api', generalRouter);
+app.use('/api', userRouter);
 
 const connected = await connectMongoose();
 
