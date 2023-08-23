@@ -3,8 +3,8 @@ import 'dotenv/config';
 async function connectMongoose() {
   const _pwd = process.env.MONGO_DB_PWD;
   const _database = 'reservierungsystem';
-  const _user = 'fatihkaraca';
-  const _cluster = 'cluster0.blzbj9n.mongodb.net';
+  const _user = process.env.MONGO_DB_USER;
+  const _cluster = 'cluster0.widevrz.mongodb.net';
   const _uri = `mongodb+srv://${_user}:${_pwd}@${_cluster}/${_database}?retryWrites=true&w=majority`;
 
   try {
