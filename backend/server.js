@@ -23,9 +23,8 @@ const PORT = process.env.PORT || 3000;
 app.use('/api', roomRouter);
 app.use('/api', reservationRouter);
 app.use('/api', userRouter);
-app.use('/api', multerRouter)
+app.use('/api', multerRouter);
 app.use('/api', generalRouter);
-
 
 const connected = await connectMongoose();
 
