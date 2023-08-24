@@ -1,5 +1,4 @@
 import ReservationModel from '../models/Reservation.js';
-import RoomModel from '../models/Room.js';
 
 export const getReservations = async (req, res) => {
   try {
@@ -12,7 +11,7 @@ export const getReservations = async (req, res) => {
 
 export const getReservation = async (req, res) => {
   const id = req.params.id;
-  const reservation = await ReservationModel.findById(id).populate('room');
+  const reservation = await ReservationModel.find({guestId:id});
   if (reservation) {
     res.send(reservation);
   } else {

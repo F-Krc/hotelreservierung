@@ -34,7 +34,7 @@ const UserProvider = ({ children }) => {
       console.log(response.data);
       const userData = response.data;
       localStorage.setItem("loggedInUser", JSON.stringify(userData));
-
+      setIsLoggedIn(true)
       setLoggedInUser(userData);
     } catch (error) {
       console.log(error);
