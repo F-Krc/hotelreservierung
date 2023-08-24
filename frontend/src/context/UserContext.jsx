@@ -31,8 +31,8 @@ const UserProvider = ({ children }) => {
       const response = await axios.post(`/api/users/login`, formData, {
         withCredentials: true,
       });
-
-      const userData = response.data.name;
+      console.log(response.data);
+      const userData = response.data;
       localStorage.setItem("loggedInUser", JSON.stringify(userData));
 
       setLoggedInUser(userData);
