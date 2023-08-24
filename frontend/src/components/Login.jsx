@@ -1,14 +1,13 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 function Login() {
-  const { loginUser, logoutUser, isLoggedIn, setIsLoggedIn, loggedInUser } =
-    useContext(UserContext);
-  
+  const { loginUser, logoutUser, isLoggedIn, setIsLoggedIn, loggedInUser } = useContext(UserContext);
 
-  const initialForm = { email: "", password: "" };
+  const initialForm = { email: '', password: '' };
   const [formData, setFormData] = useState(initialForm);
-  const [loginError, setLoginError] = useState("");
+  const [loginError, setLoginError] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -17,28 +16,25 @@ function Login() {
   const handleLogout = () => {
     logoutUser();
     setFormData(initialForm);
-
-    setLoginError("");
+    setLoginError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await loginUser(formData);
-
-      setLoginError("");
+      setLoginError('');
       setIsLoggedIn(true);
     } catch (error) {
       console.log(error);
-
-      setLoginError("Ungültige E-Mail oder Passwort");
+      setLoginError('Ungültige E-Mail oder Passwort');
     }
     setFormData(initialForm);
   };
 
   return (
     <div className="login-container">
-      <h2> {isLoggedIn ? "Ausloggen" : "Anmeldung"}</h2>
+      <h2> {isLoggedIn ? 'Ausloggen' : 'Anmeldung'}</h2>
       {isLoggedIn ? (
         <div>
           <p>Anmeldung erfolgreich! Willkommen {loggedInUser.name}</p>

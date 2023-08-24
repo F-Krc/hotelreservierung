@@ -92,8 +92,7 @@ const Reservation = () => {
         `/api/reservations/${selectedReservation._id}`,
         formData
       );
-      console.log("Reservation updated:", response.data);
-
+     // console.log("Reservation updated:", response.data);
       setFormData(initialForm);
       setSelectedReservation(null);
       fetchReservations();

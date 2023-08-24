@@ -4,7 +4,7 @@ import { UserContext } from '../context/UserContext';
 
 const initialForm = { name: '', email: '', password: '' };
 function Register() {
-  const  {createUser}  = useContext(UserContext);
+  const { createUser } = useContext(UserContext);
   const [formData, setFormData] = useState(initialForm);
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -14,7 +14,7 @@ function Register() {
   };
 
   const handleSubmit = async (e) => {
-     e.preventDefault();
+    e.preventDefault();
     try {
       console.log('form', formData);
       createUser(formData);
