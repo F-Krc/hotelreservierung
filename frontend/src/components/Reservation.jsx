@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { UserContext } from '../context/UserContext';
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
 const initialForm = {
-  guestName: '',
-  room: '',
-  checkInDate: '',
-  checkOutDate: '',
+  guestName: "",
+  room: "",
+  checkInDate: "",
+  checkOutDate: "",
 };
 const Reservation = () => {
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
@@ -18,10 +18,10 @@ const Reservation = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await axios.get('/api/rooms');
+        const response = await axios.get("/api/rooms");
         setRooms(response.data);
       } catch (error) {
-        console.error('Error fetching rooms:', error);
+        console.error("Error fetching rooms:", error);
       }
     };
 
@@ -44,22 +44,31 @@ const Reservation = () => {
       await handleUpdateSubmit();
     } else {
       try {
-        const response = await axios.post(`/api/reservations/${loggedInUser._id}`, formData);
-        console.log('Reservation added:', response.data);
-        setFormData(initialForm);
-        fetchReservations();
+        if (isLoggedIn) {
+          const response = await axios.post(
+            `/api/reservations/${loggedInUser._id}`,
+            formData
+          );
+          console.log("Reservation added:", response.data);
+          setFormData(initialForm);
+          fetchReservations();
+        }
       } catch (error) {
-        console.error('Error adding reservation:', error);
+        console.error("Error adding reservation:", error);
       }
     }
   };
 
   const fetchReservations = async () => {
     try {
-      const response = await axios.get(`/api/reservations/${loggedInUser._id}`);
-      setReservations(response.data);
+      if (isLoggedIn) {
+        const response = await axios.get(
+          `/api/reservations/${loggedInUser._id}`
+        );
+        setReservations(response.data);
+      }
     } catch (error) {
-      console.error('Error fetching reservations:', error);
+      console.error("Error fetching reservations:", error);
     }
   };
 
@@ -79,14 +88,17 @@ const Reservation = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const response = await axios.put(`/api/reservations/${selectedReservation._id}`, formData);
-      console.log('Reservation updated:', response.data);
+      const response = await axios.put(
+        `/api/reservations/${selectedReservation._id}`,
+        formData
+      );
+      console.log("Reservation updated:", response.data);
 
       setFormData(initialForm);
       setSelectedReservation(null);
       fetchReservations();
     } catch (error) {
-      console.error('Error updating reservation:', error);
+      console.error("Error updating reservation:", error);
     }
   };
 
@@ -95,7 +107,7 @@ const Reservation = () => {
       await axios.delete(`/api/reservations/${id}`);
       fetchReservations();
     } catch (error) {
-      console.error('Error deleting reservation:', error);
+      console.error("Error deleting reservation:", error);
     }
   };
 
@@ -116,7 +128,12 @@ const Reservation = () => {
 
         <label className="reservation-label">
           Room Type:
-          <select name="room" value={formData.room} onChange={handleChange} className="reservation-select">
+          <select
+            name="room"
+            value={formData.room}
+            onChange={handleChange}
+            className="reservation-select"
+          >
             <option value="">Select a room</option>
             {rooms.map((room) => (
               <option key={room._id} value={room._id}>
@@ -149,7 +166,7 @@ const Reservation = () => {
         </label>
 
         <button type="submit" className="reservation-submit-button">
-          {selectedReservation ? 'Update Reservation' : 'Add Reservation'}
+          {selectedReservation ? "Update Reservation" : "Add Reservation"}
         </button>
       </form>
       <h2 className="reservation-title">Reservations</h2>
@@ -157,13 +174,28 @@ const Reservation = () => {
         reservations.map((reservation) => (
           <div key={reservation._id} className="reservation-item">
             <p>Guest Name: {reservation.guestName}</p>
-            <p>Room Type: {rooms.find((item) => item._id === reservation.room).roomType}</p>
-            <p>Check-in Date: {new Date(reservation.checkInDate).toLocaleDateString('en-GB')}</p>
-            <p>Check-out Date: {new Date(reservation.checkOutDate).toLocaleDateString('en-GB')}</p>
-            <button onClick={() => handleUpdate(reservation)} className="reservation-update-button">
+            <p>
+              Room Type:{" "}
+              {rooms.find((item) => item._id === reservation.room).roomType}
+            </p>
+            <p>
+              Check-in Date:{" "}
+              {new Date(reservation.checkInDate).toLocaleDateString("en-GB")}
+            </p>
+            <p>
+              Check-out Date:{" "}
+              {new Date(reservation.checkOutDate).toLocaleDateString("en-GB")}
+            </p>
+            <button
+              onClick={() => handleUpdate(reservation)}
+              className="reservation-update-button"
+            >
               Update
             </button>
-            <button onClick={() => handleDelete(reservation._id)} className="reservation-delete-button">
+            <button
+              onClick={() => handleDelete(reservation._id)}
+              className="reservation-delete-button"
+            >
               Delete
             </button>
           </div>

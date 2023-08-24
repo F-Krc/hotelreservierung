@@ -81,7 +81,7 @@ export const getUserImage = async (req, res) => {
   const imagePath = currentUser.profileImage;
 
   if (fs.existsSync(imagePath)) {
-    console.log('__dirname:', __dirname);
+    // console.log('__dirname:', __dirname);
     return res.sendFile(path.join(__dirname, '/..', imagePath));
   } else {
     return res.sendFile(path.join(__dirname, '/..', 'assets', 'placeholder-profile-img.jpeg'));
