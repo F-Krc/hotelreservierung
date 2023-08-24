@@ -22,10 +22,10 @@ export const getReservation = async (req, res) => {
 
 export const addReservation = async (req, res) => {
   const reservation = req.body;
-
+  const guestId = req.params.id
 
   try {
-
+    reservation.guestId = guestId
     const newReservation = new ReservationModel(reservation);
 
     await newReservation.save();

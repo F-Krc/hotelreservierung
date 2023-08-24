@@ -1,9 +1,9 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { notFound } from "../controller/generalController.js";
+import { notFound } from '../controller/generalController.js';
 
-const generalRouter = Router()
+const generalRouter = Router();
 
-generalRouter.use('*', notFound)
+generalRouter.use('*', notFound);
 
-export default generalRouter
+export default generalRouter;
