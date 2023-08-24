@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 function Login() {
   const { loginUser, logoutUser, isLoggedIn, setIsLoggedIn, loggedInUser } =
     useContext(UserContext);
-  console.log(loggedInUser);
+  
 
   const initialForm = { email: "", password: "" };
   const [formData, setFormData] = useState(initialForm);
