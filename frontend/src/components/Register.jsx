@@ -52,7 +52,7 @@ function Register() {
       </form>
       <div className="register-ask-container">
         <span>Du hast schon einen Account?</span>
-        <Link to="/users/login">Anmeldung</Link>
+        <Link to="/login">Anmeldung</Link>
       </div>
       {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
