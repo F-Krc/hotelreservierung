@@ -18,7 +18,7 @@ const App = () => {
   return (
     <Router>
       <nav>
-        {!isLoggedIn && <NavLink to="register" activeClassName="active">
+        {!isLoggedIn && <NavLink to="/" activeClassName="active">
           Register
         </NavLink>}
         <NavLink to="login" activeClassName="active">
@@ -33,7 +33,7 @@ const App = () => {
       </nav>
 
       <Routes>
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User />} />
         <Route path="/reservation" element={<Reservation />} />
