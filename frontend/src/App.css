@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+/* body */
 body {
   background-color: lightgray;
   display: flex;
@@ -11,26 +12,11 @@ body {
   width: 100vw;
   height: 100vh;
 }
-.app-container {
-  height: 84vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.navbar {
-  background-color: #1976d2;
-}
+
+/* header */
 header {
-  height: 6vh;
+  height: 4rem;
 }
-/* .reservation-guests {
-  background-color: #28a745;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100vw;
-  height: 70vh;
-} */
 
 /* Style for navigation links */
 .nav-link {
@@ -40,7 +26,6 @@ header {
   margin: 0 0.5rem;
   transition: background-color 0.3s, color 0.3s;
 }
-
 /* Style for active navigation link */
 .active-link {
   background-color: #fff;
@@ -53,11 +38,23 @@ header {
   background-color: lightblue;
   color: blue;
 }
+
+
+/* container */
+
+.app-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 8rem);
+}
+
+/* footer */
 .footer {
   display: flex;
   justify-content: center;
   background-color: #1976d2;
-  height: 10vh;
+  height: 4rem;
   width: 100vw;
   color: white;
 }
