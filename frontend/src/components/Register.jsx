@@ -46,9 +46,9 @@ function Register() {
           variant="outlined"
           id="name"
           name="name"
+          margin="dense"
           value={formData.name}
           onChange={handleChange}
-          margin="normal"
           required
         />
         <TextField
@@ -59,7 +59,7 @@ function Register() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          margin="normal"
+          margin="dense"
           required
         />
         <TextField
@@ -71,27 +71,20 @@ function Register() {
           type="password"
           value={formData.password}
           onChange={handleChange}
-          margin="normal"
+          margin="dense"
           required
         />
         <Button type="submit" variant="contained" color="primary">
           Senden
         </Button>
       </form>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
-      >
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
         <Typography>
           Du hast schon einen Account? <Link to="/login">Anmeldung</Link>
         </Typography>
       </div>
       {successMessage && (
-        <Typography
-          variant="body1"
-          align="center"
-          color="primary"
-          style={{ marginTop: "1rem" }}
-        >
+        <Typography variant="body1" align="center" color="primary" style={{ marginTop: '1rem' }}>
           {successMessage}
         </Typography>
       )}

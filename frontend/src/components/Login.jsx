@@ -32,13 +32,11 @@ function Login() {
   return (
     <Container maxWidth="sm" className="login-container">
       <Typography variant="h4" align="center">
-        {isLoggedIn ? "Ausloggen" : "Anmeldung"}
+        {isLoggedIn ? 'Ausloggen' : 'Anmeldung'}
       </Typography>
       {isLoggedIn ? (
         <Box>
-          <Typography variant="body1">
-            Anmeldung erfolgreich! Willkommen {loggedInUser.name}
-          </Typography>
+          <Typography variant="body1">Anmeldung erfolgreich! Willkommen {loggedInUser.name}</Typography>
           <br />
           <Button onClick={handleLogout} variant="outlined">
             Ausloggen
@@ -57,7 +55,7 @@ function Login() {
             fullWidth
             required
             autoComplete="username"
-            margin="normal"
+            margin="dense"
           />
           <TextField
             type="password"
@@ -70,7 +68,7 @@ function Login() {
             fullWidth
             required
             autoComplete="current-password"
-            margin="normal"
+            margin="dense"
           />
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Senden

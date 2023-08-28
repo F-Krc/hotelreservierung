@@ -46,7 +46,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 4rem);
 }
 
 /* footer */
@@ -73,12 +73,12 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 8vh;
-  width: 40vw;
+  height: 8rem;
+  width: 100%;
 }
 .guestName {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 

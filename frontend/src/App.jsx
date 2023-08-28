@@ -9,7 +9,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { UserContext } from "./context/UserContext";
 import Footer from "./components/Footer";
 import Register from "./components/Register";
@@ -27,36 +26,23 @@ const App = () => {
     <Router>
       <CssBaseline />
 
-
       <AppBar position="fixed">
         <Toolbar>
           {!isLoggedIn && (
-            <NavLink to="/" className="nav-link" activeClassName="active-link">
+            <NavLink to="/" className="nav-link" activeclassname="active-link">
               Register
             </NavLink>
           )}
-          <NavLink
-            to="/login"
-            className="nav-link"
-            activeClassName="active-link"
-          >
-            Login
+          <NavLink to="/login" className="nav-link" activeclassname="active-link">
+            {isLoggedIn ? 'Logout' : 'Login'}
           </NavLink>
           {isLoggedIn && (
-            <NavLink
-              to="/user"
-              className="nav-link"
-              activeClassName="active-link"
-            >
+            <NavLink to="/user" className="nav-link" activeclassname="active-link">
               User
             </NavLink>
           )}
           {isLoggedIn && (
-            <NavLink
-              to="/reservation"
-              className="nav-link"
-              activeClassName="active-link"
-            >
+            <NavLink to="/reservation" className="nav-link" activeclassname="active-link">
               Reservation
             </NavLink>
           )}
@@ -76,7 +62,6 @@ const App = () => {
       </div>
 
       <Footer />
-      
     </Router>
   );
 };

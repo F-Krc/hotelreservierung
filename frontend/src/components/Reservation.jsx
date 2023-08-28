@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { UserContext } from "../context/UserContext";
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { UserContext } from '../context/UserContext';
 import {
   TextField,
   Button,
@@ -10,14 +10,19 @@ import {
   Select,
   MenuItem,
   InputLabel,
-} from "@mui/material";
+  Card,
+  CardContent,
+  CardActions,
+  Grid,
+} from '@mui/material';
 
 const initialForm = {
-  guestName: "",
-  room: "",
-  checkInDate: "",
-  checkOutDate: "",
+  guestName: '',
+  room: '',
+  checkInDate: '',
+  checkOutDate: '',
 };
+
 const Reservation = () => {
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
   const [reservations, setReservations] = useState([]);
@@ -28,17 +33,30 @@ const Reservation = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await axios.get("/api/rooms");
+        const response = await axios.get('/api/rooms');
         setRooms(response.data);
       } catch (error) {
-        console.error("Error fetching rooms:", error);
+        console.error('Error fetching rooms:', error);
       }
     };
 
     fetchRooms();
   }, []);
 
-  //  console.log(rooms);
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchReservations();
+    }
+  }, [isLoggedIn]);
+
+  const fetchReservations = async () => {
+    try {
+      const response = await axios.get(`/api/reservations/${loggedInUser._id}`);
+      setReservations(response.data);
+    } catch (error) {
+      console.error('Error fetching reservations:', error);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -55,36 +73,16 @@ const Reservation = () => {
     } else {
       try {
         if (isLoggedIn) {
-          const response = await axios.post(
-            `/api/reservations/${loggedInUser._id}`,
-            formData
-          );
-          console.log("Reservation added:", response.data);
+          const response = await axios.post(`/api/reservations/${loggedInUser._id}`, formData);
+          console.log('Reservation added:', response.data);
           setFormData(initialForm);
           fetchReservations();
         }
       } catch (error) {
-        console.error("Error adding reservation:", error);
+        console.error('Error adding reservation:', error);
       }
     }
   };
-
-  const fetchReservations = async () => {
-    try {
-      if (isLoggedIn) {
-        const response = await axios.get(
-          `/api/reservations/${loggedInUser._id}`
-        );
-        setReservations(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching reservations:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchReservations();
-  }, [isLoggedIn]);
 
   const handleUpdate = (reservation) => {
     setSelectedReservation(reservation);
@@ -98,16 +96,12 @@ const Reservation = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const response = await axios.put(
-        `/api/reservations/${selectedReservation._id}`,
-        formData
-      );
-      // console.log("Reservation updated:", response.data);
+      const response = await axios.put(`/api/reservations/${selectedReservation._id}`, formData);
       setFormData(initialForm);
       setSelectedReservation(null);
       fetchReservations();
     } catch (error) {
-      console.error("Error updating reservation:", error);
+      console.error('Error updating reservation:', error);
     }
   };
 
@@ -116,30 +110,28 @@ const Reservation = () => {
       await axios.delete(`/api/reservations/${id}`);
       fetchReservations();
     } catch (error) {
-      console.error("Error deleting reservation:", error);
+      console.error('Error deleting reservation:', error);
     }
   };
 
   return (
-    <Container maxWidth="md" className="reservation-guests">
-      <Paper elevation={3} sx={{ padding: 2, marginTop: 2 }}>
+    <Container maxWidth="md" sx={{ marginTop: 2 }}>
+      <Paper elevation={3} sx={{ padding: 2 }}>
         <Typography variant="h5" gutterBottom>
-          {selectedReservation ? "Update Reservation" : "Add Reservation"}
+          {selectedReservation ? 'Update Reservation' : 'Add Reservation'}
         </Typography>
         <form onSubmit={handleSubmit}>
-          {/* Guest Name */}
           <TextField
             fullWidth
             label="Guest Name"
             name="guestName"
             value={formData.guestName}
             onChange={handleChange}
-            margin="normal"
+            margin="dense"
             variant="outlined"
             required
           />
 
-          {/* Room Type */}
           <InputLabel htmlFor="room">Room Type</InputLabel>
           <Select
             fullWidth
@@ -147,7 +139,7 @@ const Reservation = () => {
             name="room"
             value={formData.room}
             onChange={handleChange}
-            margin="normal"
+            margin="dense"
             variant="outlined"
             required
           >
@@ -161,75 +153,80 @@ const Reservation = () => {
             ))}
           </Select>
 
-          {/* Check-in Date */}
-          <InputLabel htmlFor="checkInDate">Check-in Date</InputLabel>
-          <TextField
-            fullWidth
-            name="checkInDate"
-            type="date"
-            value={formData.checkInDate}
-            onChange={handleChange}
-            margin="normal"
-            variant="outlined"
-            required
-          />
-
-          {/* Check-out Date */}
-          <InputLabel htmlFor="checkOutDate">Check-out Date</InputLabel>
-          <TextField
-            fullWidth
-            name="checkOutDate"
-            type="date"
-            value={formData.checkOutDate}
-            onChange={handleChange}
-            margin="normal"
-            variant="outlined"
-            required
-          />
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <div>
+              <InputLabel htmlFor="checkInDate">Check-in Date</InputLabel>
+              <TextField
+                fullWidth
+                name="checkInDate"
+                type="date"
+                value={formData.checkInDate}
+                onChange={handleChange}
+                margin="dense"
+                variant="outlined"
+                required
+              />
+            </div>
+            <div>
+              <InputLabel htmlFor="checkOutDate">Check-out Date</InputLabel>
+              <TextField
+                fullWidth
+                name="checkOutDate"
+                type="date"
+                value={formData.checkOutDate}
+                onChange={handleChange}
+                margin="dense"
+                variant="outlined"
+                required
+              />
+            </div>
+          </div>
 
           <Button type="submit" variant="contained" color="primary">
-            {selectedReservation ? "Update Reservation" : "Add Reservation"}
+            {selectedReservation ? 'Update Reservation' : 'Add Reservation'}
           </Button>
         </form>
       </Paper>
       <div>
-        <h2 className="reservation-title">Reservations</h2>
+        <Typography variant="h5" gutterBottom className="reservation-title">
+          Reservations
+        </Typography>
         {isLoggedIn &&
           reservations.map((reservation) => (
-            <div key={reservation._id} className="reservation-item">
-              <div className="guestName">
-                <p>Guest Name: {reservation.guestName}</p>
-                <p>
-                  Room Type:{" "}
-                  {rooms.find((item) => item._id === reservation.room).roomType}
-                </p>
-                <p>
-                  Check-in Date:{" "}
-                  {new Date(reservation.checkInDate).toLocaleDateString(
-                    "en-GB"
-                  )}
-                </p>
-                <p>
-                  Check-out Date:{" "}
-                  {new Date(reservation.checkOutDate).toLocaleDateString(
-                    "en-GB"
-                  )}
-                </p>
-              </div>
-
-              <button
-                onClick={() => handleUpdate(reservation)}
-                className="reservation-update-button"
-              >
-                Update
-              </button>
-              <button
-                onClick={() => handleDelete(reservation._id)}
-                className="reservation-delete-button"
-              >
-                Delete
-              </button>
-            </div>
+            <Card key={reservation._id} elevation={3} sx={{ marginTop: 2 }}>
+              <CardContent>
+                <Typography variant="body1" className="guestName">
+                  <p>
+                    <strong>Guest Name:</strong>
+                    <br />
+                    {reservation.guestName}
+                  </p>
+                  <p>
+                    <strong>Room Type:</strong>
+                    <br />
+                    {rooms.find((item) => item._id === reservation.room)?.roomType}
+                  </p>
+                  <p>
+                    <strong>Check-in Date:</strong>
+                    <br />
+                    {new Date(reservation.checkInDate).toLocaleDateString('en-GB')}
+                  </p>
+                  <p>
+                    <strong>Check-out Date:</strong>
+                    <br />
+                    {new Date(reservation.checkOutDate).toLocaleDateString('en-GB')}
+                  </p>
+                  <CardActions>
+                    <Button onClick={() => handleUpdate(reservation)} variant="outlined" color="primary">
+                      Update
+                    </Button>
+                    <Button onClick={() => handleDelete(reservation._id)} variant="outlined" color="secondary">
+                      Delete
+                    </Button>
+                  </CardActions>
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
       </div>
     </Container>
