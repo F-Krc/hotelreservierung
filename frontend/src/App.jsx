@@ -12,12 +12,14 @@ import Login from "./components/Login";
 import User from "./components/User";
 import NotFound from "./components/NotFound";
 import { UserContext } from "./context/UserContext";
+import Footer from "./components/Footer";
 const App = () => {
   const { isLoggedIn } = useContext(UserContext);
 
   return (
     <Router>
-      <nav>
+    <nav className="navbar">
+        <NavLink to="register" activeClassName="active">
         {!isLoggedIn && <NavLink to="/" activeClassName="active">
           Register
         </NavLink>}
@@ -29,9 +31,8 @@ const App = () => {
         </NavLink>}
         <NavLink to="reservation" activeClassName="active">
           Reservation
-        </NavLink>
-      </nav>
-
+        </NavLink>  </nav>
+ 
       <Routes>
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/reservation" element={<Reservation />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 };

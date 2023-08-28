@@ -39,7 +39,7 @@ function User() {
     }
   };
   return (
-    <div>
+    <div className="user">
       <h1> Wilkommen {loggedInUser.name}</h1>
       <p>E-Mail:{loggedInUser.email}</p>
       <img width={100} src="http://localhost:4000/api/users/image-get" alt="" />
