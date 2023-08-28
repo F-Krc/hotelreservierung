@@ -10,17 +10,27 @@ body {
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  
 }
- .app-container {
+.app-container {
   height: 84vh;
-}  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .navbar {
   background-color: #1976d2;
 }
-header{
+header {
   height: 6vh;
 }
+/* .reservation-guests {
+  background-color: #28a745;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 70vh;
+} */
 
 /* Style for navigation links */
 .nav-link {
@@ -68,9 +78,8 @@ header{
   align-items: center;
   height: 8vh;
   width: 40vw;
-  
 }
-.guestName{
+.guestName {
   display: flex;
   justify-content: center;
   align-items: center;

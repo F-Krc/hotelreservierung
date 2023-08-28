@@ -121,7 +121,7 @@ const Reservation = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" className="reservation-guests">
       <Paper elevation={3} sx={{ padding: 2, marginTop: 2 }}>
         <Typography variant="h5" gutterBottom>
           {selectedReservation ? "Update Reservation" : "Add Reservation"}
@@ -192,41 +192,46 @@ const Reservation = () => {
           </Button>
         </form>
       </Paper>
+      <div>
+        <h2 className="reservation-title">Reservations</h2>
+        {isLoggedIn &&
+          reservations.map((reservation) => (
+            <div key={reservation._id} className="reservation-item">
+              <div className="guestName">
+                <p>Guest Name: {reservation.guestName}</p>
+                <p>
+                  Room Type:{" "}
+                  {rooms.find((item) => item._id === reservation.room).roomType}
+                </p>
+                <p>
+                  Check-in Date:{" "}
+                  {new Date(reservation.checkInDate).toLocaleDateString(
+                    "en-GB"
+                  )}
+                </p>
+                <p>
+                  Check-out Date:{" "}
+                  {new Date(reservation.checkOutDate).toLocaleDateString(
+                    "en-GB"
+                  )}
+                </p>
+              </div>
 
-      <h2 className="reservation-title">Reservations</h2>
-      {isLoggedIn &&
-        reservations.map((reservation) => (
-          <div key={reservation._id} className="reservation-item">
-            <div className="guestName">
-              <p>Guest Name: {reservation.guestName}</p>
-              <p>
-                Room Type:{" "}
-                {rooms.find((item) => item._id === reservation.room).roomType}
-              </p>
-              <p>
-                Check-in Date:{" "}
-                {new Date(reservation.checkInDate).toLocaleDateString("en-GB")}
-              </p>
-              <p>
-                Check-out Date:{" "}
-                {new Date(reservation.checkOutDate).toLocaleDateString("en-GB")}
-              </p>
+              <button
+                onClick={() => handleUpdate(reservation)}
+                className="reservation-update-button"
+              >
+                Update
+              </button>
+              <button
+                onClick={() => handleDelete(reservation._id)}
+                className="reservation-delete-button"
+              >
+                Delete
+              </button>
             </div>
-
-            <button
-              onClick={() => handleUpdate(reservation)}
-              className="reservation-update-button"
-            >
-              Update
-            </button>
-            <button
-              onClick={() => handleDelete(reservation._id)}
-              className="reservation-delete-button"
-            >
-              Delete
-            </button>
-          </div>
-        ))}
+          ))}
+      </div>
     </Container>
   );
 };
