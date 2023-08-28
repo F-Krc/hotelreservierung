@@ -1,12 +1,15 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 body {
+  background-color: lightgray;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .reservation-container {
@@ -82,4 +85,47 @@ body {
 
 .reservation-update-button:hover {
   background-color: #e0a800;
+}
+.footer {
+  background-color: #141E46;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:#FFF5E0 ;
+}
+.navbar {
+  background-color: #141E46;
+  height: 3rem;
+  width: 40vw;
+  display: flex;
+  justify-content: space-around;
+  color: #FFF5E0;
+}
+.reservation-container {
+  background-color: #FFF5E0;
+  height: 40vh;
+  width: 40vw;
+  
+  
+}
+.register-container {
+  background-color: #FFF5E0;
+  height: 40vh;
+  width: 40vw;
+  
+}
+.login-container{
+  background-color: #FFF5E0;
+  height: 40vh;
+  width: 40vw;
+}
+.user{
+  background-color: #FFF5E0;
+  height: 40vh;
+  width: 40vw;
+
+}
+.active{
+  color: #93B1A6;
 }
