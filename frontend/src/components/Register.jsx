@@ -1,12 +1,18 @@
-import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
+import React from "react";
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
-const initialForm = { name: '', email: '', password: '' };
+const initialForm = { name: "", email: "", password: "" };
+
 function Register() {
   const { createUser } = useContext(UserContext);
   const [formData, setFormData] = useState(initialForm);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,12 +22,12 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('form', formData);
+      console.log("form", formData);
       createUser(formData);
-      setSuccessMessage('Registration completed successfully!');
+      setSuccessMessage("Registration completed successfully!");
       setFormData(initialForm);
       setTimeout(() => {
-        setSuccessMessage('');
+        setSuccessMessage("");
       }, 4000);
     } catch (error) {
       console.log(error);
@@ -29,33 +35,67 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      <h2>Registrieren</h2>
-      <form onSubmit={handleSubmit} className="register-form">
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-        <br />
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-        <br />
-        <label htmlFor="password">Passwort</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
+    <Container maxWidth="sm">
+      <Typography variant="h2" align="center" gutterBottom>
+        Registrieren
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="Name"
+          variant="outlined"
+          id="name"
+          name="name"
+          value={formData.name}
           onChange={handleChange}
+          margin="normal"
           required
         />
-        <br />
-        <button type="submit">Senden</button>
+        <TextField
+          fullWidth
+          label="Email"
+          variant="outlined"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          margin="normal"
+          required
+        />
+        <TextField
+          fullWidth
+          label="Passwort"
+          variant="outlined"
+          id="password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          margin="normal"
+          required
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Senden
+        </Button>
       </form>
-      <div className="register-ask-container">
-        <span>Du hast schon einen Account?</span>
-        <Link to="/login">Anmeldung</Link>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
+      >
+        <Typography>
+          Du hast schon einen Account? <Link to="/login">Anmeldung</Link>
+        </Typography>
       </div>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-    </div>
+      {successMessage && (
+        <Typography
+          variant="body1"
+          align="center"
+          color="primary"
+          style={{ marginTop: "1rem" }}
+        >
+          {successMessage}
+        </Typography>
+      )}
+    </Container>
   );
 }
 

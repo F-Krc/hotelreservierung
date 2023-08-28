@@ -1,7 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
-
+import {
+  TextField,
+  Button,
+  Container,
+  Paper,
+  Typography,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 
 const initialForm = {
   guestName: "",
@@ -93,7 +102,7 @@ const Reservation = () => {
         `/api/reservations/${selectedReservation._id}`,
         formData
       );
-     // console.log("Reservation updated:", response.data);
+      // console.log("Reservation updated:", response.data);
       setFormData(initialForm);
       setSelectedReservation(null);
       fetchReservations();
@@ -112,63 +121,78 @@ const Reservation = () => {
   };
 
   return (
-    <div className="reservation-container">
-      <h2 className="reservation-title">Reservation Form</h2>
-      <form onSubmit={handleSubmit} className="reservation-form">
-        <label className="reservation-label">
-          Guest Name:
-          <input
-            type="text"
+    <Container maxWidth="md">
+      <Paper elevation={3} sx={{ padding: 2, marginTop: 2 }}>
+        <Typography variant="h5" gutterBottom>
+          {selectedReservation ? "Update Reservation" : "Add Reservation"}
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          {/* Guest Name */}
+          <TextField
+            fullWidth
+            label="Guest Name"
             name="guestName"
             value={formData.guestName}
             onChange={handleChange}
-            className="reservation-input-text"
+            margin="normal"
+            variant="outlined"
+            required
           />
-        </label>
 
-        <label className="reservation-label">
-          Room Type:
-          <select
+          {/* Room Type */}
+          <InputLabel htmlFor="room">Room Type</InputLabel>
+          <Select
+            fullWidth
+            labelId="room"
             name="room"
             value={formData.room}
             onChange={handleChange}
-            className="reservation-select"
+            margin="normal"
+            variant="outlined"
+            required
           >
-            <option value="">Select a room</option>
+            <MenuItem value="">
+              <em>Select a room</em>
+            </MenuItem>
             {rooms.map((room) => (
-              <option key={room._id} value={room._id}>
+              <MenuItem key={room._id} value={room._id}>
                 {room.roomType}
-              </option>
+              </MenuItem>
             ))}
-          </select>
-        </label>
+          </Select>
 
-        <label className="reservation-label">
-          Check-in Date:
-          <input
-            type="date"
+          {/* Check-in Date */}
+          <InputLabel htmlFor="checkInDate">Check-in Date</InputLabel>
+          <TextField
+            fullWidth
             name="checkInDate"
+            type="date"
             value={formData.checkInDate}
             onChange={handleChange}
-            className="reservation-input-date"
+            margin="normal"
+            variant="outlined"
+            required
           />
-        </label>
 
-        <label className="reservation-label">
-          Check-out Date:
-          <input
-            type="date"
+          {/* Check-out Date */}
+          <InputLabel htmlFor="checkOutDate">Check-out Date</InputLabel>
+          <TextField
+            fullWidth
             name="checkOutDate"
+            type="date"
             value={formData.checkOutDate}
             onChange={handleChange}
-            className="reservation-input-date"
+            margin="normal"
+            variant="outlined"
+            required
           />
-        </label>
 
-        <button type="submit" className="reservation-submit-button">
-          {selectedReservation ? "Update Reservation" : "Add Reservation"}
-        </button>
-      </form>
+          <Button type="submit" variant="contained" color="primary">
+            {selectedReservation ? "Update Reservation" : "Add Reservation"}
+          </Button>
+        </form>
+      </Paper>
+
       <h2 className="reservation-title">Reservations</h2>
       {isLoggedIn &&
         reservations.map((reservation) => (
@@ -200,7 +224,7 @@ const Reservation = () => {
             </button>
           </div>
         ))}
-    </div>
+    </Container>
   );
 };
 
