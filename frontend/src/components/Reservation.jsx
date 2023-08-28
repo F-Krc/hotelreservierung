@@ -197,19 +197,22 @@ const Reservation = () => {
       {isLoggedIn &&
         reservations.map((reservation) => (
           <div key={reservation._id} className="reservation-item">
-            <p>Guest Name: {reservation.guestName}</p>
-            <p>
-              Room Type:{" "}
-              {rooms.find((item) => item._id === reservation.room).roomType}
-            </p>
-            <p>
-              Check-in Date:{" "}
-              {new Date(reservation.checkInDate).toLocaleDateString("en-GB")}
-            </p>
-            <p>
-              Check-out Date:{" "}
-              {new Date(reservation.checkOutDate).toLocaleDateString("en-GB")}
-            </p>
+            <div className="guestName">
+              <p>Guest Name: {reservation.guestName}</p>
+              <p>
+                Room Type:{" "}
+                {rooms.find((item) => item._id === reservation.room).roomType}
+              </p>
+              <p>
+                Check-in Date:{" "}
+                {new Date(reservation.checkInDate).toLocaleDateString("en-GB")}
+              </p>
+              <p>
+                Check-out Date:{" "}
+                {new Date(reservation.checkOutDate).toLocaleDateString("en-GB")}
+              </p>
+            </div>
+
             <button
               onClick={() => handleUpdate(reservation)}
               className="reservation-update-button"

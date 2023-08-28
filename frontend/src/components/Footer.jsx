@@ -3,8 +3,8 @@ import { Typography } from "@mui/material";
 
 function Footer() {
   return (
-    <div>
-      <Typography variant="h3"></Typography>
+    <div className="footer">
+      <Typography variant="h3"> footer</Typography>
     </div>
   );
 }

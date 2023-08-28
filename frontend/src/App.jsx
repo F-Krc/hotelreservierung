@@ -26,7 +26,9 @@ const App = () => {
   return (
     <Router>
       <CssBaseline />
-      <AppBar position="static">
+
+
+      <AppBar position="fixed">
         <Toolbar>
           {!isLoggedIn && (
             <NavLink to="/" className="nav-link" activeClassName="active-link">
@@ -49,27 +51,32 @@ const App = () => {
               User
             </NavLink>
           )}
-          <NavLink
-            to="/reservation"
-            className="nav-link"
-            activeClassName="active-link"
-          >
-            Reservation
-          </NavLink>
+          {isLoggedIn && (
+            <NavLink
+              to="/reservation"
+              className="nav-link"
+              activeClassName="active-link"
+            >
+              Reservation
+            </NavLink>
+          )}
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg" className="main-container">
-        <Routes>
-          <Route path="/" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/user" element={<User />} />
-          <Route path="/reservation" element={<Reservation />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Container>
+      <div className="app-container">
+        <Container width="lg" className="main-container">
+          <Routes>
+            <Route path="/" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/reservation" element={<Reservation />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Container>
+      </div>
 
       <Footer />
+      
     </Router>
   );
 };
