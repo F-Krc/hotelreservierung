@@ -18,25 +18,25 @@ const App = () => {
 
   return (
     <Router>
-      <nav className="navbar">
+    <nav className="navbar">
         <NavLink to="register" activeClassName="active">
+        {!isLoggedIn && <NavLink to="/" activeClassName="active">
           Register
-        </NavLink>
+        </NavLink>}
         <NavLink to="login" activeClassName="active">
           Login
         </NavLink>
-        <NavLink to="user" activeClassName="active">
+        {isLoggedIn && <NavLink to="user" activeClassName="active">
           User
-        </NavLink>
+        </NavLink>}
         <NavLink to="reservation" activeClassName="active">
           Reservation
-        </NavLink>
-      </nav>
-
+        </NavLink>  </nav>
+ 
       <Routes>
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/user" element={isLoggedIn && <User />} />
+        <Route path="/user" element={<User />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
