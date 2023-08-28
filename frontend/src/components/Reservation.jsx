@@ -115,7 +115,7 @@ const Reservation = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: 2 }}>
+    <Container className='container' maxWidth="md" sx={{ marginTop: 2 }}>
       <Paper elevation={3} sx={{ padding: 2 }}>
         <Typography variant="h5" gutterBottom>
           {selectedReservation ? 'Update Reservation' : 'Add Reservation'}
@@ -193,9 +193,10 @@ const Reservation = () => {
         </Typography>
         {isLoggedIn &&
           reservations.map((reservation) => (
-            <Card key={reservation._id} elevation={3} sx={{ marginTop: 2 }}>
-              <CardContent>
+            <Card  key={reservation._id} elevation={3} sx={{ marginTop: 2 }}>
+              <CardContent >
                 <Typography variant="body1" className="guestName">
+                  
                   <p>
                     <strong>Guest Name:</strong>
                     <br />

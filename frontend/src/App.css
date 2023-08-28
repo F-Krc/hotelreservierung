@@ -39,7 +39,6 @@ header {
   color: blue;
 }
 
-
 /* container */
 
 .app-container {
@@ -80,6 +79,10 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+.container {
+  background-color: lightblue;
 }
 
 /* Styling for guest name */
