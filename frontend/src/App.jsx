@@ -19,19 +19,20 @@ const App = () => {
   return (
     <Router>
     <nav className="navbar">
-        <NavLink to="register" activeClassName="active">
-        {!isLoggedIn && <NavLink to="/" activeClassName="active">
+        <NavLink to="register" ></NavLink>
+        {!isLoggedIn && <NavLink to="/" >
           Register
         </NavLink>}
-        <NavLink to="login" activeClassName="active">
+        <NavLink to="login" >
           Login
         </NavLink>
-        {isLoggedIn && <NavLink to="user" activeClassName="active">
+        {isLoggedIn && <NavLink to="user" >
           User
         </NavLink>}
-        <NavLink to="reservation" activeClassName="active">
+        <NavLink to="reservation" >
           Reservation
-        </NavLink>  </nav>
+        </NavLink>  
+        </nav>
  
       <Routes>
         <Route path="/" element={<Register />} />

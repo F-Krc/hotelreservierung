@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
 function Login() {
-  const { loginUser, logoutUser, isLoggedIn, setIsLoggedIn, loggedInUser } = useContext(UserContext);
+  const { loginUser, logoutUser, isLoggedIn, loggedInUser, loginError } = useContext(UserContext);
 
   const initialForm = { email: '', password: '' };
   const [formData, setFormData] = useState(initialForm);
-  const [loginError, setLoginError] = useState('');
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,18 +16,14 @@ function Login() {
   const handleLogout = () => {
     logoutUser();
     setFormData(initialForm);
-    setLoginError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await loginUser(formData);
-      setLoginError('');
-      setIsLoggedIn(true);
     } catch (error) {
       console.log(error);
-      setLoginError('Ungültige E-Mail oder Passwort');
     }
     setFormData(initialForm);
   };

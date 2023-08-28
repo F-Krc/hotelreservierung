@@ -34,6 +34,12 @@ export async function loginUserController(req, res) {
       if (isMatching) {
         const token = await createToken({ userId: user._id });
         // console.log(token);
+        const sanitiziedUser = { 
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          profileImage: user.profileImage
+        }
         return res
           .status(200)
           .cookie('accessToken', token, {
@@ -41,7 +47,7 @@ export async function loginUserController(req, res) {
             secure: true,
             maxAge: process.env.SESSION_EXPIRATION_IN_MINUTES * 60 * 1000,
           })
-          .send(user);
+          .send(sanitiziedUser);
       }
       return res.status(404).json({ msg: 'User not found!' });
     }
