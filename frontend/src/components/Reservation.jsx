@@ -115,7 +115,7 @@ const Reservation = () => {
   };
 
   return (
-    <Container className='container' maxWidth="md" sx={{ marginTop: 2 }}>
+    <Container className='container'  sx={{ marginTop: 2 }}>
       <Paper elevation={3} sx={{ padding: 2 }}>
         <Typography variant="h5" gutterBottom>
           {selectedReservation ? 'Update Reservation' : 'Add Reservation'}

@@ -82,7 +82,9 @@ header {
   flex-wrap: wrap;
 }
 .container {
-  background-color: lightblue;
+  display: flex;
+  gap: 2rem;
+  width: 90rem;
 }
 
 /* Styling for guest name */
