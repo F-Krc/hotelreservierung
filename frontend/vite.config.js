@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://hotelreservierung.onrender.com/',
+        target: 'https://hotelreservierung.onrender.com',
         changeOrigin: true,
         secure: false,
       },
