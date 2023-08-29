@@ -117,7 +117,7 @@ const Reservation = () => {
   return (
     <Container className='container'  sx={{ marginTop: 2 }}>
       <Paper elevation={3} sx={{ padding: 2 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           {selectedReservation ? 'Update Reservation' : 'Add Reservation'}
         </Typography>
         <form onSubmit={handleSubmit}>

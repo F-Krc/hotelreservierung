@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 function Footer() {
   return (
     <div className="footer">
-      <Typography variant="h3"> footer</Typography>
+      <Typography variant="h4" align="center">Hotelreservierungssystem</Typography>
     </div>
   );
 }
