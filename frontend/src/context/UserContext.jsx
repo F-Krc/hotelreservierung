@@ -1,14 +1,15 @@
-import React, { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loginError, setLoginError] = useState('');
 
   useEffect(() => {
-    const storedLoggedInUser = localStorage.getItem("loggedInUser");
+    const storedLoggedInUser = localStorage.getItem('loggedInUser');
 
     if (storedLoggedInUser) {
       setLoggedInUser(JSON.parse(storedLoggedInUser));
@@ -31,23 +32,34 @@ const UserProvider = ({ children }) => {
       const response = await axios.post(`/api/users/login`, formData, {
         withCredentials: true,
       });
-     // console.log(response.data);
-      const userData = response.data;
-      localStorage.setItem("loggedInUser", JSON.stringify(userData));
-      setIsLoggedIn(true)
-      setLoggedInUser(userData);
+
+      if (response.status === 200) {
+        const userData = response.data;
+        localStorage.setItem('loggedInUser', JSON.stringify(userData));
+
+        // Fetch the user data using _id
+        const userResponse = await axios.get(`/api/users/me/${userData._id}`, {
+          withCredentials: true,
+        });
+
+        const loggedInUserData = userResponse.data;
+
+        setIsLoggedIn(true);
+        setLoggedInUser(loggedInUserData);
+      }
     } catch (error) {
-      console.log(error);
+      console.log('error,', error);
+      setLoginError('Ungültig Email oder Passsword');
     }
   };
 
   const logoutUser = async () => {
     try {
-      const response = await axios.post("/api/users/logout", {
+      const response = await axios.post('/api/users/logout', {
         withCredentials: true,
       });
       setIsLoggedIn(false);
-      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem('loggedInUser');
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +74,7 @@ const UserProvider = ({ children }) => {
         setIsLoggedIn,
         logoutUser,
         loggedInUser,
+        loginError,
       }}
     >
       {children}

@@ -1,85 +1,87 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
+/* body */
 body {
+  background-color: lightgray;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* header */
+header {
+  height: 4rem;
+}
+
+/* Style for navigation links */
+.nav-link {
+  text-decoration: none;
+  color: #fff;
+  padding: 1rem;
+  margin: 0 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+/* Style for active navigation link */
+.active-link {
+  background-color: #fff;
+  color: #1976d2;
+  border-radius: 4px;
+}
+
+/* Hover effect for navigation links */
+.nav-link:hover {
+  background-color: lightblue;
+  color: blue;
+}
+
+/* container */
+
+.app-container {
+  position: absolute;
+  top: 6rem;
+  left: 20vw;
+  width: 60vw;
   display: flex;
-  align-items: center;
   justify-content: center;
+  min-height: calc(100vh - 4rem);
+  padding-bottom: 6rem;
 }
 
-.reservation-container {
-  width: 450px;
-  margin: 0 auto;
+/* footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #1976d2;
+  height: 4rem;
+  width: 100vw;
+  color: white;
 }
 
+/* Styling for reservation title */
 .reservation-title {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.reservation-form {
-  margin-bottom: 10px;
-}
-
-.reservation-label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.reservation-input-text,
-.reservation-select,
-.reservation-input-date {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.reservation-submit-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.reservation-submit-button:hover {
-  background-color: #0069d9;
-}
-
+/* Styling for each reservation item */
 .reservation-item {
-  margin-bottom: 10px;
-  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8rem;
+  width: 100%;
 }
-
-.reservation-update-button,
-.reservation-delete-button {
-  padding: 5px 10px;
-  margin-right: 5px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.reservation-delete-button {
-  background-color: red;
-}
-
-.reservation-delete-button:hover {
-  background-color: rgb(201, 61, 61);
-}
-
-.reservation-update-button {
-  background-color: #ffc107;
-}
-
-.reservation-update-button:hover {
-  background-color: #e0a800;
+.guestName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }

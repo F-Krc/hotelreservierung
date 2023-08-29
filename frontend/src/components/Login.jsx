@@ -1,12 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { Typography, TextField, Button, Container, Box } from "@mui/material";
 
 function Login() {
-  const { loginUser, logoutUser, isLoggedIn, setIsLoggedIn, loggedInUser } = useContext(UserContext);
+  const { loginUser, logoutUser, isLoggedIn, loggedInUser, loginError } =
+    useContext(UserContext);
 
-  const initialForm = { email: '', password: '' };
+  const initialForm = { email: "", password: "" };
   const [formData, setFormData] = useState(initialForm);
-  const [loginError, setLoginError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,60 +17,70 @@ function Login() {
   const handleLogout = () => {
     logoutUser();
     setFormData(initialForm);
-    setLoginError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await loginUser(formData);
-      setLoginError('');
-      setIsLoggedIn(true);
     } catch (error) {
       console.log(error);
-      setLoginError('Ungültige E-Mail oder Passwort');
     }
     setFormData(initialForm);
   };
 
   return (
-    <div className="login-container">
-      <h2> {isLoggedIn ? 'Ausloggen' : 'Anmeldung'}</h2>
+    <Container maxWidth="m" className="login-container">
+      <Typography variant="h3" >
+        {isLoggedIn ? 'Ausloggen' : 'Anmeldung'}
+      </Typography>
       {isLoggedIn ? (
-        <div>
-          <p>Anmeldung erfolgreich! Willkommen {loggedInUser.name}</p>
+        <Box>
+          <Typography variant="body1">Anmeldung erfolgreich! Willkommen {loggedInUser.name}</Typography>
           <br />
-          <button onClick={handleLogout}>Ausloggen</button>
-        </div>
+          <Button onClick={handleLogout} variant="outlined">
+            Ausloggen
+          </Button>
+        </Box>
       ) : (
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email:</label>
-          <input
+          <TextField
             type="email"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            label="Email"
+            variant="outlined"
+            fullWidth
             required
             autoComplete="username"
+            margin="dense"
           />
-          <br />
-          <label htmlFor="password">Passwort</label>
-          <input
+          <TextField
             type="password"
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
+            label="Passwort"
+            variant="outlined"
+            fullWidth
             required
             autoComplete="current-password"
+            margin="dense"
           />
-          <br />
-          <button type="submit">Senden</button>
-          {loginError && <p className="error-message">{loginError}</p>}
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Senden
+          </Button>
+          {loginError && (
+            <Typography variant="body2" color="error" align="center">
+              {loginError}
+            </Typography>
+          )}
         </form>
       )}
-    </div>
+    </Container>
   );
 }
 
