@@ -45,7 +45,7 @@ function User() {
         <>
           <h1>Wilkommen {loggedInUser.name}</h1>
           <p>E-Mail: {loggedInUser.email}</p>
-          <img width={100} src="http://localhost:4000/api/users/image-get" alt="" />
+          <img width={100} src="/api/users/image-get" alt="" />
           <h2>Upload</h2>
           <form onSubmit={handleSubmit}>
             <input type="file" name="profileImage" accept="image/*" onChange={handleFileChange} />
