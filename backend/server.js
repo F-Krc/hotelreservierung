@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['http://localhost:4444', 'http://localhost:5173', 'https://hotelreservierung.onrender.com'],
+    origin: ['http://localhost:4444', 'http://localhost:5173', 'https://hotelreservierung.onrender.com/'],
     credentials: true,
   })
 );
@@ -25,6 +25,9 @@ app.use('/api', reservationRouter);
 app.use('/api', userRouter);
 app.use('/api', multerRouter);
 app.use('/api', generalRouter);
+
+app.use('/', express.static('./frontend'));
+app.get('/*', (req, res) => res.sendFile('/frontend/index.html', { root: process.env.PWD }));
 
 const connected = await connectMongoose();
 
