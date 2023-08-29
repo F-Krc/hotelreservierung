@@ -30,8 +30,8 @@ function Login() {
   };
 
   return (
-    <Container maxWidth="sm" className="login-container">
-      <Typography variant="h4" align="center">
+    <Container maxWidth="m" className="login-container">
+      <Typography variant="h3" >
         {isLoggedIn ? 'Ausloggen' : 'Anmeldung'}
       </Typography>
       {isLoggedIn ? (

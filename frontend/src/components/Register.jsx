@@ -35,8 +35,8 @@ function Register() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h2" align="center" gutterBottom>
+    <Container maxWidth="m">
+      <Typography variant="h3" gutterBottom>
         Registrieren
       </Typography>
       <form onSubmit={handleSubmit}>

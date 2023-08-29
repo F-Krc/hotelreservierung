@@ -32,16 +32,23 @@ const UserProvider = ({ children }) => {
       const response = await axios.post(`/api/users/login`, formData, {
         withCredentials: true,
       });
-      // console.log(response.data);
-     // console.log(response.status);
+
       if (response.status === 200) {
         const userData = response.data;
         localStorage.setItem('loggedInUser', JSON.stringify(userData));
+
+        // Fetch the user data using _id
+        const userResponse = await axios.get(`/api/users/me/${userData._id}`, {
+          withCredentials: true,
+        });
+
+        const loggedInUserData = userResponse.data;
+
         setIsLoggedIn(true);
-        setLoggedInUser(userData);
+        setLoggedInUser(loggedInUserData);
       }
     } catch (error) {
-      console.log('error,',error);
+      console.log('error,', error);
       setLoginError('Ungültig Email oder Passsword');
     }
   };
